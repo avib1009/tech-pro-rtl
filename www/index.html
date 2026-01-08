@@ -1,0 +1,1707 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="אפליקציית השירות המקצועית של אבי ברוך - ניהול שירותים, מעקב, חתימה דיגיטלית וניווט GPS">
+    <title>אפליקציית השירות של אבי ברוך - גרסה 2.0 PRO</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* ===== CSS VARIABLES ===== */
+        :root {
+            /* Primary Colors */
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --primary-light: #818cf8;
+
+            /* Secondary Colors */
+            --secondary: #8b5cf6;
+            --secondary-dark: #7c3aed;
+            --secondary-light: #a78bfa;
+
+            /* Accent Colors */
+            --accent: #ec4899;
+            --accent-dark: #db2777;
+            --accent-light: #f472b6;
+
+            /* Gold Theme */
+            --gold: #fbbf24;
+            --gold-dark: #f59e0b;
+            --gold-light: #fcd34d;
+
+            /* Purple Extended */
+            --purple: #a855f7;
+            --purple-dark: #9333ea;
+            --purple-light: #c084fc;
+
+            /* Yellow Extended */
+            --yellow: #facc15;
+            --yellow-dark: #eab308;
+            --yellow-light: #fde047;
+
+            /* Gradients */
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-accent: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --gradient-gold: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
+            --gradient-sunset: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            --gradient-purple: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+
+            /* Neutral Colors */
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-tertiary: #f1f5f9;
+            --text-primary: #1e293b;
+            --text-secondary: #475569;
+            --text-tertiary: #94a3b8;
+            --border: #e2e8f0;
+            --shadow: rgba(15, 23, 42, 0.08);
+
+            /* Status Colors */
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #3b82f6;
+
+            /* Spacing */
+            --spacing-xs: 0.25rem;
+            --spacing-sm: 0.5rem;
+            --spacing-md: 1rem;
+            --spacing-lg: 1.5rem;
+            --spacing-xl: 2rem;
+            --spacing-2xl: 3rem;
+
+            /* Border Radius */
+            --radius-sm: 0.375rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+            --radius-2xl: 1.5rem;
+            --radius-full: 9999px;
+
+            /* Shadows */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+
+            /* Transitions */
+            --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-normal: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Dark Mode Variables */
+        [data-theme="dark"] {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-tertiary: #334155;
+            --text-primary: #f1f5f9;
+            --text-secondary: #cbd5e1;
+            --text-tertiary: #64748b;
+            --border: #334155;
+            --shadow: rgba(0, 0, 0, 0.3);
+        }
+
+        /* ===== RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            font-family: 'Heebo', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            transition: background-color var(--transition-normal), color var(--transition-normal);
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        @keyframes swing {
+            0%, 100% {
+                transform: rotate(-15deg);
+            }
+            50% {
+                transform: rotate(15deg);
+            }
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: -1000px 0;
+            }
+            100% {
+                background-position: 1000px 0;
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @keyframes modalSlide {
+            from {
+                opacity: 0;
+                transform: translateY(-20px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes sparkle {
+            0%, 100% {
+                opacity: 0;
+                transform: scale(0);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* ===== HOME SCREEN ===== */
+        .home-screen {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: var(--spacing-xl);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .home-screen::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .home-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            animation: fadeIn 1s ease-out, slideInUp 0.8s ease-out;
+        }
+
+        .logo-container {
+            margin-bottom: var(--spacing-2xl);
+            position: relative;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .logo-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(251, 191, 36, 0.4) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .hammer-logo {
+            position: relative;
+            z-index: 2;
+            width: 150px;
+            height: 150px;
+            filter: drop-shadow(0 10px 30px rgba(251, 191, 36, 0.5));
+        }
+
+        .hammer-logo .hammer {
+            animation: swing 3s ease-in-out infinite;
+            transform-origin: bottom center;
+        }
+
+        .hammer-logo .sparkle {
+            opacity: 0;
+        }
+
+        .hammer-logo .sparkle:nth-child(1) {
+            animation: sparkle 2s ease-in-out infinite;
+            animation-delay: 0s;
+        }
+
+        .hammer-logo .sparkle:nth-child(2) {
+            animation: sparkle 2s ease-in-out infinite;
+            animation-delay: 0.5s;
+        }
+
+        .hammer-logo .sparkle:nth-child(3) {
+            animation: sparkle 2s ease-in-out infinite;
+            animation-delay: 1s;
+        }
+
+        .home-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: white;
+            margin-bottom: var(--spacing-md);
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            letter-spacing: -0.02em;
+        }
+
+        .home-subtitle {
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: var(--spacing-2xl);
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .feature-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-md);
+            justify-content: center;
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        .feature-tag {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: var(--spacing-sm) var(--spacing-lg);
+            border-radius: var(--radius-full);
+            color: white;
+            font-weight: 600;
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            transition: all var(--transition-normal);
+            animation: slideInUp 0.8s ease-out backwards;
+        }
+
+        .feature-tag:nth-child(1) { animation-delay: 0.2s; }
+        .feature-tag:nth-child(2) { animation-delay: 0.3s; }
+        .feature-tag:nth-child(3) { animation-delay: 0.4s; }
+        .feature-tag:nth-child(4) { animation-delay: 0.5s; }
+
+        .feature-tag:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .start-button {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            color: #1e293b;
+            border: none;
+            padding: var(--spacing-lg) var(--spacing-2xl);
+            border-radius: var(--radius-full);
+            font-size: 1.25rem;
+            font-weight: 800;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            box-shadow: 0 10px 30px rgba(251, 191, 36, 0.4), 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: all var(--transition-normal);
+            animation: slideInUp 0.8s ease-out 0.6s backwards;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .start-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .start-button:hover::before {
+            left: 100%;
+        }
+
+        .start-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(251, 191, 36, 0.5), 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .start-button:active {
+            transform: translateY(0);
+        }
+
+        /* ===== MAIN APP ===== */
+        .app-container {
+            display: none;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: var(--spacing-md);
+        }
+
+        .app-container.active {
+            display: block;
+        }
+
+        /* ===== HEADER ===== */
+        .app-header {
+            background: var(--gradient-primary);
+            color: white;
+            padding: var(--spacing-lg) var(--spacing-xl);
+            border-radius: var(--radius-xl);
+            margin-bottom: var(--spacing-xl);
+            box-shadow: var(--shadow-lg);
+            animation: slideInDown 0.5s ease-out;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            font-size: 1.5rem;
+            font-weight: 800;
+        }
+
+        .header-logo {
+            width: 40px;
+            height: 40px;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: var(--spacing-sm);
+        }
+
+        .icon-button {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            font-size: 1.25rem;
+        }
+
+        .icon-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .icon-button:active {
+            transform: translateY(0);
+        }
+
+        /* ===== TABS ===== */
+        .tabs {
+            display: flex;
+            gap: var(--spacing-sm);
+            background: rgba(255, 255, 255, 0.1);
+            padding: var(--spacing-xs);
+            border-radius: var(--radius-lg);
+        }
+
+        .tab {
+            flex: 1;
+            padding: var(--spacing-sm) var(--spacing-md);
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: var(--radius-md);
+            transition: all var(--transition-fast);
+        }
+
+        .tab:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .tab.active {
+            background: white;
+            color: var(--primary);
+        }
+
+        /* ===== CONTENT SECTIONS ===== */
+        .content-section {
+            display: none;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        /* ===== CARDS ===== */
+        .card {
+            background: var(--bg-primary);
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-xl);
+            box-shadow: var(--shadow-md);
+            margin-bottom: var(--spacing-lg);
+            transition: all var(--transition-normal);
+            animation: slideInUp 0.5s ease-out;
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-xl);
+            transform: translateY(-2px);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-lg);
+            padding-bottom: var(--spacing-md);
+            border-bottom: 2px solid var(--border);
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        /* ===== FORMS ===== */
+        .form-group {
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: var(--spacing-md);
+            border: 2px solid var(--border);
+            border-radius: var(--radius-md);
+            font-family: inherit;
+            font-size: 1rem;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            transition: all var(--transition-fast);
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        /* ===== BUTTONS ===== */
+        .btn {
+            padding: var(--spacing-md) var(--spacing-xl);
+            border: none;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            justify-content: center;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-primary:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 2px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-tertiary);
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .btn-full {
+            width: 100%;
+        }
+
+        /* ===== SERVICE ITEMS ===== */
+        .service-list {
+            display: grid;
+            gap: var(--spacing-lg);
+        }
+
+        .service-item {
+            background: var(--bg-primary);
+            border: 2px solid var(--border);
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-lg);
+            transition: all var(--transition-normal);
+            animation: slideInUp 0.5s ease-out;
+        }
+
+        .service-item:hover {
+            border-color: var(--primary);
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px);
+        }
+
+        .service-item.completed {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%);
+            border-color: var(--success);
+        }
+
+        .service-item.urgent {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(239, 68, 68, 0.05) 100%);
+            border-color: var(--danger);
+        }
+
+        .service-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .service-title {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .service-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .badge {
+            padding: var(--spacing-xs) var(--spacing-md);
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+        }
+
+        .badge-success {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .badge-warning {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+        }
+
+        .badge-danger {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+        }
+
+        .badge-info {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--info);
+        }
+
+        .service-actions {
+            display: flex;
+            gap: var(--spacing-sm);
+            margin-top: var(--spacing-md);
+        }
+
+        .btn-sm {
+            padding: var(--spacing-sm) var(--spacing-md);
+            font-size: 0.875rem;
+        }
+
+        /* ===== STATISTICS ===== */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .stat-card {
+            background: var(--gradient-primary);
+            color: white;
+            padding: var(--spacing-xl);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-lg);
+            animation: slideInUp 0.5s ease-out;
+        }
+
+        .stat-card.gold {
+            background: var(--gradient-gold);
+        }
+
+        .stat-card.success {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+
+        .stat-card.danger {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            opacity: 0.9;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .stat-description {
+            font-size: 0.875rem;
+            opacity: 0.8;
+        }
+
+        /* ===== MODAL ===== */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            padding: var(--spacing-xl);
+            overflow-y: auto;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: var(--bg-primary);
+            border-radius: var(--radius-2xl);
+            padding: var(--spacing-2xl);
+            max-width: 600px;
+            width: 100%;
+            box-shadow: var(--shadow-2xl);
+            animation: modalSlide 0.3s ease-out;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--text-primary);
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-secondary);
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius-md);
+            transition: all var(--transition-fast);
+        }
+
+        .modal-close:hover {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+        }
+
+        /* ===== SIGNATURE CANVAS ===== */
+        .signature-canvas {
+            width: 100%;
+            height: 200px;
+            border: 2px dashed var(--border);
+            border-radius: var(--radius-md);
+            cursor: crosshair;
+            background: var(--bg-secondary);
+        }
+
+        /* ===== TOAST NOTIFICATIONS ===== */
+        .toast-container {
+            position: fixed;
+            top: var(--spacing-xl);
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-sm);
+            pointer-events: none;
+        }
+
+        .toast {
+            background: white;
+            color: var(--text-primary);
+            padding: var(--spacing-md) var(--spacing-xl);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-xl);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            animation: slideInDown 0.3s ease-out;
+            pointer-events: all;
+            min-width: 300px;
+        }
+
+        .toast.success {
+            border-right: 4px solid var(--success);
+        }
+
+        .toast.error {
+            border-right: 4px solid var(--danger);
+        }
+
+        .toast.info {
+            border-right: 4px solid var(--info);
+        }
+
+        /* ===== EMPTY STATE ===== */
+        .empty-state {
+            text-align: center;
+            padding: var(--spacing-2xl);
+            color: var(--text-secondary);
+        }
+
+        .empty-icon {
+            font-size: 4rem;
+            margin-bottom: var(--spacing-md);
+            opacity: 0.5;
+        }
+
+        .empty-text {
+            font-size: 1.125rem;
+            font-weight: 600;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .home-title {
+                font-size: 2rem;
+            }
+
+            .home-subtitle {
+                font-size: 1rem;
+            }
+
+            .hammer-logo {
+                width: 120px;
+                height: 120px;
+            }
+
+            .feature-tags {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .start-button {
+                font-size: 1.125rem;
+                padding: var(--spacing-md) var(--spacing-xl);
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .card {
+                padding: var(--spacing-lg);
+            }
+
+            .modal-content {
+                padding: var(--spacing-lg);
+            }
+
+            .service-actions {
+                flex-direction: column;
+            }
+
+            .btn-sm {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .home-screen {
+                padding: var(--spacing-lg);
+            }
+
+            .app-header {
+                padding: var(--spacing-md);
+            }
+
+            .header-title {
+                font-size: 1.125rem;
+            }
+
+            .tabs {
+                flex-direction: column;
+            }
+        }
+
+        /* ===== UTILITIES ===== */
+        .hidden {
+            display: none !important;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-1 { margin-top: var(--spacing-md); }
+        .mb-1 { margin-bottom: var(--spacing-md); }
+        .mt-2 { margin-top: var(--spacing-lg); }
+        .mb-2 { margin-bottom: var(--spacing-lg); }
+    </style>
+</head>
+<body>
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Home Screen -->
+    <div class="home-screen" id="homeScreen">
+        <div class="home-content">
+            <div class="logo-container">
+                <div class="logo-glow"></div>
+                <svg class="hammer-logo" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="hammerGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#fbbf24;stop-opacity:1" />
+                            <stop offset="50%" style="stop-color:#f59e0b;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#d97706;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    <g class="hammer">
+                        <!-- Handle -->
+                        <rect x="90" y="80" width="20" height="100" rx="5" fill="#8b4513" />
+                        <!-- Head -->
+                        <rect x="60" y="50" width="80" height="40" rx="5" fill="url(#hammerGradient)" />
+                        <!-- Shine -->
+                        <rect x="70" y="55" width="30" height="8" rx="4" fill="rgba(255,255,255,0.4)" />
+                    </g>
+                    <!-- Sparkles -->
+                    <circle class="sparkle" cx="50" cy="70" r="3" fill="#fbbf24" />
+                    <circle class="sparkle" cx="150" cy="70" r="3" fill="#fbbf24" />
+                    <circle class="sparkle" cx="100" cy="40" r="3" fill="#fbbf24" />
+                </svg>
+            </div>
+
+            <h1 class="home-title">אפליקציית השירות של אבי ברוך</h1>
+            <p class="home-subtitle">ניהול מקצועי, מעקב חכם, חוויה מושלמת</p>
+
+            <div class="feature-tags">
+                <div class="feature-tag">
+                    <span>📋</span>
+                    <span>מעקב חכם</span>
+                </div>
+                <div class="feature-tag">
+                    <span>📍</span>
+                    <span>ניווט GPS</span>
+                </div>
+                <div class="feature-tag">
+                    <span>✍️</span>
+                    <span>חתימה דיגיטלית</span>
+                </div>
+                <div class="feature-tag">
+                    <span>💰</span>
+                    <span>מעקב הכנסות</span>
+                </div>
+            </div>
+
+            <button class="start-button" onclick="startApp()">
+                <span>▶</span>
+                <span>התחל עכשיו</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main App Container -->
+    <div class="app-container" id="appContainer">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-top">
+                <div class="header-title">
+                    <svg class="header-logo" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="90" y="80" width="20" height="100" rx="5" fill="white" opacity="0.9" />
+                        <rect x="60" y="50" width="80" height="40" rx="5" fill="white" />
+                    </svg>
+                    <span>אפליקציית השירות</span>
+                </div>
+                <div class="header-actions">
+                    <button class="icon-button" onclick="toggleTheme()" aria-label="החלף ערכת צבעים">
+                        <span id="themeIcon">🌙</span>
+                    </button>
+                    <button class="icon-button" onclick="showManagementModal()" aria-label="ניהול">
+                        <span>⚙️</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="tabs">
+                <button class="tab active" data-tab="services" onclick="switchTab('services')" aria-label="שירותים">
+                    📋 שירותים
+                </button>
+                <button class="tab" data-tab="statistics" onclick="switchTab('statistics')" aria-label="סטטיסטיקות">
+                    📊 סטטיסטיקות
+                </button>
+            </div>
+        </header>
+
+        <!-- Services Section -->
+        <div class="content-section active" id="servicesSection">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">הוסף שירות חדש</h2>
+                </div>
+                <form id="serviceForm" onsubmit="addService(event)">
+                    <div class="form-group">
+                        <label class="form-label">שם הלקוח</label>
+                        <input type="text" class="form-input" id="customerName" required placeholder="הזן שם לקוח">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">סוג השירות</label>
+                        <select class="form-select" id="serviceType" required>
+                            <option value="">בחר סוג שירות</option>
+                            <option value="תיקון">תיקון</option>
+                            <option value="התקנה">התקנה</option>
+                            <option value="תחזוקה">תחזוקה</option>
+                            <option value="ייעוץ">ייעוץ</option>
+                            <option value="אחר">אחר</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">תיאור</label>
+                        <textarea class="form-textarea" id="description" required placeholder="תאר את השירות"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">מחיר (₪)</label>
+                        <input type="number" class="form-input" id="price" required placeholder="0" min="0" step="0.01">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">כתובת</label>
+                        <input type="text" class="form-input" id="address" required placeholder="הזן כתובת">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            <input type="checkbox" id="isUrgent" style="margin-left: 8px;">
+                            שירות דחוף
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-full">
+                        ➕ הוסף שירות
+                    </button>
+                </form>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">רשימת שירותים</h2>
+                    <button class="btn btn-secondary btn-sm" onclick="filterServices('all')">
+                        הצג הכל
+                    </button>
+                </div>
+                <div id="serviceList" class="service-list" aria-live="polite">
+                    <!-- Services will be rendered here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Statistics Section -->
+        <div class="content-section" id="statisticsSection">
+            <div class="stats-grid" id="statsGrid">
+                <!-- Statistics will be rendered here -->
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">פירוט לפי סוג שירות</h2>
+                </div>
+                <div id="serviceBreakdown">
+                    <!-- Service breakdown will be rendered here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Signature Modal -->
+    <div class="modal" id="signatureModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">חתימה דיגיטלית</h3>
+                <button class="modal-close" onclick="closeSignatureModal()">&times;</button>
+            </div>
+            <canvas class="signature-canvas" id="signatureCanvas"></canvas>
+            <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+                <button class="btn btn-secondary" onclick="clearSignature()">נקה</button>
+                <button class="btn btn-primary" onclick="saveSignature()">שמור חתימה</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Management Modal -->
+    <div class="modal" id="managementModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">ניהול</h3>
+                <button class="modal-close" onclick="closeManagementModal()">&times;</button>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 1rem;">
+                <button class="btn btn-primary btn-full" onclick="exportBackup()">
+                    💾 ייצוא גיבוי
+                </button>
+                <button class="btn btn-primary btn-full" onclick="exportReport()">
+                    📄 ייצוא דוח
+                </button>
+                <button class="btn btn-secondary btn-full" onclick="clearCompletedServices()">
+                    🗑️ נקה שירותים שהושלמו
+                </button>
+                <button class="btn btn-danger btn-full" onclick="clearAllData()">
+                    ⚠️ מחק את כל הנתונים
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ===== APP STATE =====
+        const AppState = {
+            services: [],
+            currentTab: 'services',
+            theme: 'light',
+            currentSignatureServiceId: null
+        };
+
+        // ===== DOM CACHE =====
+        const DOM = {
+            homeScreen: document.getElementById('homeScreen'),
+            appContainer: document.getElementById('appContainer'),
+            serviceForm: document.getElementById('serviceForm'),
+            serviceList: document.getElementById('serviceList'),
+            statsGrid: document.getElementById('statsGrid'),
+            serviceBreakdown: document.getElementById('serviceBreakdown'),
+            toastContainer: document.getElementById('toastContainer'),
+            signatureModal: document.getElementById('signatureModal'),
+            signatureCanvas: document.getElementById('signatureCanvas'),
+            managementModal: document.getElementById('managementModal'),
+            themeIcon: document.getElementById('themeIcon')
+        };
+
+        // ===== INITIALIZATION =====
+        function init() {
+            loadData();
+            setupSignatureCanvas();
+            applyTheme();
+            renderServices();
+            updateStatistics();
+        }
+
+        // ===== DATA PERSISTENCE =====
+        function saveData() {
+            try {
+                localStorage.setItem('serviceAppV2', JSON.stringify(AppState));
+            } catch (error) {
+                showToast('שגיאה בשמירת נתונים', 'error');
+            }
+        }
+
+        function loadData() {
+            try {
+                const saved = localStorage.getItem('serviceAppV2');
+                if (saved) {
+                    const data = JSON.parse(saved);
+                    AppState.services = data.services || [];
+                    AppState.theme = data.theme || 'light';
+                }
+            } catch (error) {
+                console.error('Error loading data:', error);
+            }
+        }
+
+        // ===== APP CONTROL =====
+        function startApp() {
+            DOM.homeScreen.style.display = 'none';
+            DOM.appContainer.classList.add('active');
+        }
+
+        function switchTab(tabName) {
+            AppState.currentTab = tabName;
+
+            // Update tab buttons
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+                if (tab.dataset.tab === tabName) {
+                    tab.classList.add('active');
+                }
+            });
+
+            // Update sections
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+
+            if (tabName === 'services') {
+                document.getElementById('servicesSection').classList.add('active');
+            } else if (tabName === 'statistics') {
+                document.getElementById('statisticsSection').classList.add('active');
+                updateStatistics();
+            }
+        }
+
+        // ===== THEME =====
+        function toggleTheme() {
+            AppState.theme = AppState.theme === 'light' ? 'dark' : 'light';
+            applyTheme();
+            saveData();
+        }
+
+        function applyTheme() {
+            document.documentElement.setAttribute('data-theme', AppState.theme);
+            DOM.themeIcon.textContent = AppState.theme === 'light' ? '🌙' : '☀️';
+        }
+
+        // ===== SERVICES =====
+        function addService(event) {
+            event.preventDefault();
+
+            const service = {
+                id: Date.now(),
+                customerName: document.getElementById('customerName').value,
+                serviceType: document.getElementById('serviceType').value,
+                description: document.getElementById('description').value,
+                price: parseFloat(document.getElementById('price').value),
+                address: document.getElementById('address').value,
+                isUrgent: document.getElementById('isUrgent').checked,
+                completed: false,
+                createdAt: new Date().toISOString(),
+                signature: null
+            };
+
+            AppState.services.unshift(service);
+            saveData();
+            renderServices();
+            DOM.serviceForm.reset();
+            showToast('השירות נוסף בהצלחה', 'success');
+
+            // Vibration feedback
+            if (navigator.vibrate) {
+                navigator.vibrate(50);
+            }
+        }
+
+        function renderServices() {
+            const services = AppState.services;
+
+            if (services.length === 0) {
+                DOM.serviceList.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">📋</div>
+                        <div class="empty-text">אין שירותים עדיין</div>
+                    </div>
+                `;
+                return;
+            }
+
+            DOM.serviceList.innerHTML = services.map(service => `
+                <div class="service-item ${service.completed ? 'completed' : ''} ${service.isUrgent ? 'urgent' : ''}">
+                    <div class="service-header">
+                        <div>
+                            <h3 class="service-title">${escapeHtml(service.customerName)}</h3>
+                            <div class="service-meta">
+                                <span class="badge badge-info">${escapeHtml(service.serviceType)}</span>
+                                ${service.isUrgent ? '<span class="badge badge-danger">🔥 דחוף</span>' : ''}
+                                ${service.completed ? '<span class="badge badge-success">✓ הושלם</span>' : ''}
+                                ${service.signature ? '<span class="badge badge-info">✍️ חתום</span>' : ''}
+                            </div>
+                        </div>
+                    </div>
+
+                    <p style="color: var(--text-secondary); margin-bottom: 0.5rem;">
+                        ${escapeHtml(service.description)}
+                    </p>
+
+                    <p style="color: var(--text-secondary); margin-bottom: 0.5rem;">
+                        📍 ${escapeHtml(service.address)}
+                    </p>
+
+                    <p style="color: var(--gold); font-weight: 700; font-size: 1.125rem; margin-bottom: 1rem;">
+                        💰 ₪${service.price.toFixed(2)}
+                    </p>
+
+                    <p style="color: var(--text-tertiary); font-size: 0.875rem; margin-bottom: 1rem;">
+                        📅 ${formatDate(service.createdAt)}
+                    </p>
+
+                    <div class="service-actions">
+                        ${!service.completed ? `
+                            <button class="btn btn-success btn-sm" onclick="toggleComplete(${service.id})">
+                                ✓ סמן כהושלם
+                            </button>
+                        ` : `
+                            <button class="btn btn-secondary btn-sm" onclick="toggleComplete(${service.id})">
+                                ↺ החזר לפעיל
+                            </button>
+                        `}
+                        <button class="btn btn-primary btn-sm" onclick="openSignatureModal(${service.id})">
+                            ✍️ חתימה
+                        </button>
+                        <button class="btn btn-primary btn-sm" onclick="navigateToAddress('${escapeHtml(service.address)}')">
+                            📍 נווט
+                        </button>
+                        <button class="btn btn-danger btn-sm" onclick="deleteService(${service.id})">
+                            🗑️ מחק
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function toggleComplete(serviceId) {
+            const service = AppState.services.find(s => s.id === serviceId);
+            if (service) {
+                service.completed = !service.completed;
+                saveData();
+                renderServices();
+                updateStatistics();
+                showToast(service.completed ? 'השירות סומן כהושלם' : 'השירות הוחזר לפעיל', 'success');
+
+                if (navigator.vibrate) {
+                    navigator.vibrate(100);
+                }
+            }
+        }
+
+        function deleteService(serviceId) {
+            if (confirm('האם אתה בטוח שברצונך למחוק את השירות?')) {
+                AppState.services = AppState.services.filter(s => s.id !== serviceId);
+                saveData();
+                renderServices();
+                updateStatistics();
+                showToast('השירות נמחק', 'info');
+            }
+        }
+
+        function filterServices(filter) {
+            // Implement filtering logic if needed
+            renderServices();
+        }
+
+        // ===== STATISTICS =====
+        function updateStatistics() {
+            const total = AppState.services.length;
+            const completed = AppState.services.filter(s => s.completed).length;
+            const pending = total - completed;
+            const urgent = AppState.services.filter(s => s.isUrgent && !s.completed).length;
+            const totalRevenue = AppState.services.reduce((sum, s) => sum + s.price, 0);
+            const completionRate = total > 0 ? ((completed / total) * 100).toFixed(1) : 0;
+
+            DOM.statsGrid.innerHTML = `
+                <div class="stat-card">
+                    <div class="stat-label">סה"כ שירותים</div>
+                    <div class="stat-value">${total}</div>
+                    <div class="stat-description">כל השירותים במערכת</div>
+                </div>
+
+                <div class="stat-card success">
+                    <div class="stat-label">הושלמו</div>
+                    <div class="stat-value">${completed}</div>
+                    <div class="stat-description">${completionRate}% אחוז השלמה</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-label">ממתינים</div>
+                    <div class="stat-value">${pending}</div>
+                    <div class="stat-description">שירותים פעילים</div>
+                </div>
+
+                <div class="stat-card danger">
+                    <div class="stat-label">דחופים</div>
+                    <div class="stat-value">${urgent}</div>
+                    <div class="stat-description">דורשים טיפול מיידי</div>
+                </div>
+
+                <div class="stat-card gold">
+                    <div class="stat-label">סה"כ הכנסות</div>
+                    <div class="stat-value">₪${totalRevenue.toFixed(2)}</div>
+                    <div class="stat-description">כל השירותים</div>
+                </div>
+            `;
+
+            // Service breakdown
+            const breakdown = {};
+            AppState.services.forEach(service => {
+                breakdown[service.serviceType] = (breakdown[service.serviceType] || 0) + 1;
+            });
+
+            DOM.serviceBreakdown.innerHTML = Object.entries(breakdown)
+                .map(([type, count]) => `
+                    <div style="display: flex; justify-content: space-between; padding: 1rem; border-bottom: 1px solid var(--border);">
+                        <span style="font-weight: 600;">${escapeHtml(type)}</span>
+                        <span class="badge badge-info">${count}</span>
+                    </div>
+                `).join('') || '<div class="empty-state"><div class="empty-text">אין נתונים</div></div>';
+        }
+
+        // ===== SIGNATURE =====
+        let signatureCanvas, signatureCtx;
+        let isDrawing = false;
+
+        function setupSignatureCanvas() {
+            signatureCanvas = DOM.signatureCanvas;
+            signatureCtx = signatureCanvas.getContext('2d');
+
+            // Set canvas size
+            const rect = signatureCanvas.getBoundingClientRect();
+            signatureCanvas.width = rect.width;
+            signatureCanvas.height = rect.height;
+
+            // Setup drawing
+            signatureCanvas.addEventListener('mousedown', startDrawing);
+            signatureCanvas.addEventListener('mousemove', draw);
+            signatureCanvas.addEventListener('mouseup', stopDrawing);
+            signatureCanvas.addEventListener('mouseout', stopDrawing);
+
+            // Touch support
+            signatureCanvas.addEventListener('touchstart', handleTouch);
+            signatureCanvas.addEventListener('touchmove', handleTouch);
+            signatureCanvas.addEventListener('touchend', stopDrawing);
+        }
+
+        function startDrawing(e) {
+            isDrawing = true;
+            const rect = signatureCanvas.getBoundingClientRect();
+            signatureCtx.beginPath();
+            signatureCtx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
+        }
+
+        function draw(e) {
+            if (!isDrawing) return;
+            const rect = signatureCanvas.getBoundingClientRect();
+            signatureCtx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
+            signatureCtx.strokeStyle = '#1e293b';
+            signatureCtx.lineWidth = 2;
+            signatureCtx.lineCap = 'round';
+            signatureCtx.stroke();
+        }
+
+        function stopDrawing() {
+            isDrawing = false;
+        }
+
+        function handleTouch(e) {
+            e.preventDefault();
+            const touch = e.touches[0];
+            const mouseEvent = new MouseEvent(e.type === 'touchstart' ? 'mousedown' : 'mousemove', {
+                clientX: touch.clientX,
+                clientY: touch.clientY
+            });
+            signatureCanvas.dispatchEvent(mouseEvent);
+        }
+
+        function clearSignature() {
+            signatureCtx.clearRect(0, 0, signatureCanvas.width, signatureCanvas.height);
+        }
+
+        function openSignatureModal(serviceId) {
+            AppState.currentSignatureServiceId = serviceId;
+            DOM.signatureModal.classList.add('active');
+            clearSignature();
+        }
+
+        function closeSignatureModal() {
+            DOM.signatureModal.classList.remove('active');
+            AppState.currentSignatureServiceId = null;
+        }
+
+        function saveSignature() {
+            if (AppState.currentSignatureServiceId) {
+                const service = AppState.services.find(s => s.id === AppState.currentSignatureServiceId);
+                if (service) {
+                    service.signature = signatureCanvas.toDataURL();
+                    saveData();
+                    renderServices();
+                    closeSignatureModal();
+                    showToast('החתימה נשמרה', 'success');
+                }
+            }
+        }
+
+        // ===== NAVIGATION =====
+        function navigateToAddress(address) {
+            const encodedAddress = encodeURIComponent(address);
+            const url = `https://www.google.com/maps/search/?api=1&query=${encodedAddress}`;
+            window.open(url, '_blank');
+        }
+
+        // ===== MANAGEMENT =====
+        function showManagementModal() {
+            DOM.managementModal.classList.add('active');
+        }
+
+        function closeManagementModal() {
+            DOM.managementModal.classList.remove('active');
+        }
+
+        function exportBackup() {
+            const backup = {
+                version: '2.0',
+                timestamp: new Date().toISOString(),
+                data: AppState
+            };
+
+            const blob = new Blob([JSON.stringify(backup, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `service-backup-${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+
+            showToast('הגיבוי יוצא בהצלחה', 'success');
+        }
+
+        function exportReport() {
+            const report = generateReport();
+            const blob = new Blob([report], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `service-report-${new Date().toISOString().split('T')[0]}.txt`;
+            a.click();
+            URL.revokeObjectURL(url);
+
+            showToast('הדוח יוצא בהצלחה', 'success');
+        }
+
+        function generateReport() {
+            const total = AppState.services.length;
+            const completed = AppState.services.filter(s => s.completed).length;
+            const totalRevenue = AppState.services.reduce((sum, s) => sum + s.price, 0);
+
+            let report = '=================================\n';
+            report += 'דוח שירותים - אפליקציית אבי ברוך\n';
+            report += '=================================\n\n';
+            report += `תאריך: ${formatDate(new Date().toISOString())}\n\n`;
+            report += `סה"כ שירותים: ${total}\n`;
+            report += `הושלמו: ${completed}\n`;
+            report += `ממתינים: ${total - completed}\n`;
+            report += `סה"כ הכנסות: ₪${totalRevenue.toFixed(2)}\n\n`;
+            report += '=================================\n';
+            report += 'פירוט שירותים:\n';
+            report += '=================================\n\n';
+
+            AppState.services.forEach((service, index) => {
+                report += `${index + 1}. ${service.customerName}\n`;
+                report += `   סוג: ${service.serviceType}\n`;
+                report += `   מחיר: ₪${service.price.toFixed(2)}\n`;
+                report += `   סטטוס: ${service.completed ? 'הושלם' : 'ממתין'}\n`;
+                report += `   תאריך: ${formatDate(service.createdAt)}\n\n`;
+            });
+
+            return report;
+        }
+
+        function clearCompletedServices() {
+            if (confirm('האם למחוק את כל השירותים שהושלמו?')) {
+                AppState.services = AppState.services.filter(s => !s.completed);
+                saveData();
+                renderServices();
+                updateStatistics();
+                closeManagementModal();
+                showToast('השירותים שהושלמו נמחקו', 'success');
+            }
+        }
+
+        function clearAllData() {
+            if (confirm('אזהרה! פעולה זו תמחק את כל הנתונים. האם להמשיך?')) {
+                if (confirm('האם אתה בטוח לחלוטין? אין אפשרות לשחזור!')) {
+                    AppState.services = [];
+                    saveData();
+                    renderServices();
+                    updateStatistics();
+                    closeManagementModal();
+                    showToast('כל הנתונים נמחקו', 'info');
+                }
+            }
+        }
+
+        // ===== TOAST NOTIFICATIONS =====
+        function showToast(message, type = 'info') {
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+
+            const icon = type === 'success' ? '✓' : type === 'error' ? '✗' : 'ℹ';
+            toast.innerHTML = `
+                <span style="font-size: 1.25rem;">${icon}</span>
+                <span style="font-weight: 600;">${escapeHtml(message)}</span>
+            `;
+
+            DOM.toastContainer.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.animation = 'fadeOut 0.3s ease-out';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // ===== UTILITIES =====
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function formatDate(isoDate) {
+            const date = new Date(isoDate);
+            return date.toLocaleDateString('he-IL', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+
+        // ===== INITIALIZE APP =====
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

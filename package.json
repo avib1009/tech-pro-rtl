@@ -1,0 +1,23 @@
+{
+  "name": "tech-pro-rtl",
+  "version": "2.0.0",
+  "description": "Technician PRO - Service Management App",
+  "main": "index.js",
+  "scripts": {
+    "build": "echo 'Build complete - using www folder'",
+    "android:build": "cd android && ./gradlew assembleDebug",
+    "android:run": "npx cap run android"
+  },
+  "keywords": [
+    "technician",
+    "service",
+    "management"
+  ],
+  "author": "Avi Baruch",
+  "license": "MIT",
+  "dependencies": {
+    "@capacitor/android": "^8.0.0",
+    "@capacitor/cli": "^8.0.0",
+    "@capacitor/core": "^8.0.0"
+  }
+}

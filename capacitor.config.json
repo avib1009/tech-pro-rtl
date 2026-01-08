@@ -1,0 +1,13 @@
+{
+  "appId": "com.techprortl.app",
+  "appName": "Technician PRO",
+  "webDir": "www",
+  "android": {
+    "allowMixedContent": true,
+    "captureInput": true,
+    "webContentsDebuggingEnabled": true
+  },
+  "server": {
+    "androidScheme": "https"
+  }
+}

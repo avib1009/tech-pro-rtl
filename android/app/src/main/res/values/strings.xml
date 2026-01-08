@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Technician PRO</string>
+    <string name="title_activity_main">Technician PRO</string>
+    <string name="package_name">com.techprortl.app</string>
+    <string name="custom_url_scheme">com.techprortl.app</string>
+</resources>
